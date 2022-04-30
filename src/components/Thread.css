@@ -1,0 +1,21 @@
+.thread {
+  display: flex;
+  width: 70%;
+  margin: auto;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.thread--profile {
+  display: flex;
+}
+
+.thread--profile img {
+  width: 30px;
+}
+
+.thread--profile--text {
+  display: flex;
+  flex-direction: column;
+}
