@@ -1,6 +1,7 @@
 import React from "react";
 import "./Thread.css";
 import Comment from "./Comment";
+import AddComment from "./AddComment";
 
 function Thread(props) {
   return (
@@ -35,6 +36,7 @@ function Thread(props) {
             />
           ))
         : ""}
+      <AddComment handleAddComment={props.handleAddComment} id={props.id} />
     </div>
   );
 }

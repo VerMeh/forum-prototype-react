@@ -121,6 +121,41 @@ function App() {
     setThreads(newThreads);
   }
 
+  // function handleAddComment(text, id) {
+  //   const newComment = {
+  //     id: nanoid(),
+  //     commentUsername: "Mehul Verma",
+  //     commentKarma: 12.1,
+  //     commentText: text,
+  //     commentLikes: 12,
+  //     commentDislikes: 2,
+  //   };
+
+  //   setThreads((prevThread) => {
+  //     return prevThread.map((thread) => {
+  //       return thread.id === id ? { ...thread, newComment } : thread;
+  //     });
+  //   });
+
+  //   // const newComments = [...threads, newComment];
+  //   // setThreads(newComments);
+  // }
+
+  function handleAddCommentSam(id, text) {
+    const newComment = {
+      id: nanoid(),
+      commentUsername: "Mehul Verma",
+      commentKarma: 12.1,
+      commentText: text,
+      commentLikes: 12,
+      commentDislikes: 2,
+    };
+    const newComments = threads[id].comments.concat(newComment);
+    const newThread = { ...threads[id], comments: newComments };
+    const newThreads = { ...threads, newThread };
+    setThreads(newThreads);
+  }
+
   return (
     <div className="app">
       <Nav />
@@ -139,6 +174,7 @@ function App() {
               handleLike={() => handleLike(thread.id)}
               handleDislike={() => handleDislike(thread.id)}
               comments={thread.comments}
+              handleAddComment={handleAddCommentSam()}
             />
           </div>
         ))}

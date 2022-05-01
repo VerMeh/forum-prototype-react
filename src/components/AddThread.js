@@ -33,7 +33,6 @@ function AddThread(props) {
           Post
         </button>
       </div>
-      {console.log()}
     </div>
   );
 }
