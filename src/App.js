@@ -83,8 +83,6 @@ function App() {
   //   // console.log("Clicked!!");
   // }
   function handleLike(id) {
-    console.log("Clicked!");
-    console.log(id);
     setThreads((prevThread) => {
       return prevThread.map((thread) => {
         return thread.id === id
@@ -92,12 +90,9 @@ function App() {
           : thread;
       });
     });
-    console.log(threads);
   }
 
   function handleDislike(id) {
-    console.log("Clicked!");
-    console.log(id);
     setThreads((prevThread) => {
       return prevThread.map((thread) => {
         return thread.id === id
@@ -105,7 +100,6 @@ function App() {
           : thread;
       });
     });
-    console.log(threads);
   }
 
   function handleAddThread(text) {
@@ -121,27 +115,7 @@ function App() {
     setThreads(newThreads);
   }
 
-  // function handleAddComment(text, id) {
-  //   const newComment = {
-  //     id: nanoid(),
-  //     commentUsername: "Mehul Verma",
-  //     commentKarma: 12.1,
-  //     commentText: text,
-  //     commentLikes: 12,
-  //     commentDislikes: 2,
-  //   };
-
-  //   setThreads((prevThread) => {
-  //     return prevThread.map((thread) => {
-  //       return thread.id === id ? { ...thread, newComment } : thread;
-  //     });
-  //   });
-
-  //   // const newComments = [...threads, newComment];
-  //   // setThreads(newComments);
-  // }
-
-  function handleAddCommentSam(id, text) {
+  function handleAddComment(text, id) {
     const newComment = {
       id: nanoid(),
       commentUsername: "Mehul Verma",
@@ -150,10 +124,21 @@ function App() {
       commentLikes: 12,
       commentDislikes: 2,
     };
-    const newComments = threads[id].comments.concat(newComment);
-    const newThread = { ...threads[id], comments: newComments };
-    const newThreads = { ...threads, newThread };
-    setThreads(newThreads);
+    const newComments = threads.map((thread) => {
+      return thread.id === id ? { ...threads.comments, newComment } : "";
+    });
+    console.log(id);
+    console.log(newComment);
+    console.log(newComments);
+
+    setThreads((prevThread) => {
+      return prevThread.map((thread) => {
+        return thread.id === id ? { ...thread, comments: newComments } : thread;
+      });
+    });
+
+    // const newComments = [...threads, newComment];
+    // setThreads(newComments);
   }
 
   return (
@@ -174,7 +159,7 @@ function App() {
               handleLike={() => handleLike(thread.id)}
               handleDislike={() => handleDislike(thread.id)}
               comments={thread.comments}
-              handleAddComment={handleAddCommentSam()}
+              handleAddComment={() => handleAddComment(thread.id)}
             />
           </div>
         ))}

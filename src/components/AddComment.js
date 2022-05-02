@@ -8,18 +8,19 @@ function AddComment(props) {
     if (characterLimit - event.target.value.length >= 0) {
       setCommentText(event.target.value);
     }
+    console.log(commentText);
   }
 
   function handleCommentClick() {
     if (commentText.trim().length > 0) {
-      props.handleAddComment(props.id, commentText);
+      props.handleAddComment(commentText, props.threadId);
       setCommentText("");
     }
   }
   return (
     <div className="add--comment">
       <textarea
-        cols="100"
+        cols="90"
         rows="10"
         placeholder="Type to add a comment..."
         value={commentText}

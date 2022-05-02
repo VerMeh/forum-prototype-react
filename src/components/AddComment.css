@@ -1,0 +1,16 @@
+textarea {
+  background-color: rgba(26, 26, 27, 0.8);
+  resize: none;
+  color: white;
+}
+
+.add--comment {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment--footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

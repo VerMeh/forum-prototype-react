@@ -21,9 +21,8 @@ function Thread(props) {
           alt="dislike"
           onClick={props.handleDislike}
         />
-        <span className="like ratio">{props.likes / props.dislikes}</span>
+        <span className="like-ratio">{props.likes / props.dislikes}</span>
       </div>
-      {console.log(props.comments)}
       {props.comments
         ? props.comments.map((comment) => (
             <Comment
@@ -36,7 +35,10 @@ function Thread(props) {
             />
           ))
         : ""}
-      <AddComment handleAddComment={props.handleAddComment} id={props.id} />
+      <AddComment
+        threadId={props.id}
+        handleAddComment={props.handleAddComment}
+      />
     </div>
   );
 }
