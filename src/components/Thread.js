@@ -21,7 +21,7 @@ function Thread(props) {
           alt="dislike"
           onClick={props.handleDislike}
         />
-        <span className="like-ratio">{props.likes / props.dislikes}</span>
+        <span className="total--likes">{props.likes - props.dislikes}</span>
       </div>
       {props.comments
         ? props.comments.map((comment) => (
@@ -32,6 +32,8 @@ function Thread(props) {
               commentText={comment.commentText}
               commentLikes={comment.commentLikes}
               commentDislikes={comment.commentDislikes}
+              handleLike={props.handleCommentLike}
+              handleDislike={props.handleDislike}
             />
           ))
         : ""}

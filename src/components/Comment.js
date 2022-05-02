@@ -14,9 +14,13 @@ function Comment(props) {
       <p className="thread--text">{props.commentText}</p>
       <div className="thread--footer">
         <img src="./assets/like.svg" alt="like" onClick={props.handleLike} />
-        <img src="./assets/dislike.svg" alt="dislike" />
+        <img
+          src="./assets/dislike.svg"
+          alt="dislike"
+          onClick={props.handleDislike}
+        />
         <span className="like-ratio">
-          {props.commentLikes / props.commentDislikes}
+          {props.commentLikes - props.commentDislikes}
         </span>
       </div>
     </div>
