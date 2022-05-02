@@ -3001,27 +3001,20 @@ function App() {
     setThreads(newThreads);
   }
 
-  function handleAddComment(text, id) {
+  function handleAddComment(parentID, text) {
+    console.log(text);
     const newComment = {
       id: nanoid(),
-      commentUsername: "Mehul Verma",
-      commentKarma: 12.1,
+      parentID: parentID,
+      commentUsername: generateName(),
+      commentKarma: Math.floor(Math.random() * 100),
       commentText: text,
-      commentLikes: 12,
-      commentDislikes: 2,
+      commentLikes: 0,
+      commentDislikes: 0,
     };
-    const newComments = threads.map((thread) => {
-      return thread.id === id ? { ...threads.comments, newComment } : "";
-    });
-    console.log(id);
-    console.log(newComment);
-    console.log(newComments);
 
-    setThreads((prevThread) => {
-      return prevThread.map((thread) => {
-        return thread.id === id ? { ...thread, comments: newComments } : thread;
-      });
-    });
+    const newComments = [...comments, newComment];
+    setComments(newComments);
   }
 
   return (
@@ -3044,9 +3037,7 @@ function App() {
               handleCommentLike={handleCommentLike}
               handleCommentDislike={handleCommentDislike}
               comments={comments}
-              handleAddComment={() =>
-                handleAddComment(thread.id, thread.comments.id)
-              }
+              handleAddComment={() => handleAddComment(thread.id)}
             />
           </div>
         ))}

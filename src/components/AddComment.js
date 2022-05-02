@@ -13,7 +13,8 @@ function AddComment(props) {
 
   function handleCommentClick() {
     if (commentText.trim().length > 0) {
-      props.handleAddComment(commentText, props.threadId);
+      props.handleAddComment(commentText);
+      console.log(commentText);
       setCommentText("");
     }
   }

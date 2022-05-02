@@ -41,10 +41,7 @@ function Thread(props) {
         )
       )}
 
-      <AddComment
-        threadId={props.id}
-        handleAddComment={props.handleAddComment}
-      />
+      <AddComment handleAddComment={() => props.handleAddComment(props.id)} />
     </div>
   );
 }
