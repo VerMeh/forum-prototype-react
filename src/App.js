@@ -9,69 +9,71 @@ import AddThread from "./components/AddThread";
 function App() {
   const [threads, setThreads] = React.useState([
     {
-      id: nanoid(),
+      id: 1,
       username: "Mehul Verma",
       karma: 12.1,
       text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
       likes: 12,
       dislikes: 2,
-      comments: [
-        {
-          id: nanoid(),
-          commentUsername: "Vivek Anand",
-          commentKarma: 42,
-          commentText:
-            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
-          commentLikes: 3,
-          commentDislikes: 2,
-        },
-        {
-          id: nanoid(),
-          commentUsername: "Shagufta Iqbal",
-          commentKarma: 21.2,
-          commentText:
-            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
-          commentLikes: 12,
-          commentDislikes: 2,
-        },
-      ],
     },
     {
-      id: nanoid(),
+      id: 2,
       username: "Unknown",
       karma: 50.2,
       text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
       likes: 65,
       dislikes: 0,
-      comment: [],
     },
     {
-      id: nanoid(),
+      id: 3,
       username: "Anon",
       karma: 121,
       text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
       likes: 10,
       dislikes: 12,
-      comments: [
-        {
-          id: nanoid(),
-          commentUsername: "Mehul Verma",
-          commentKarma: 12.1,
-          commentText:
-            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
-          commentLikes: 12,
-          commentDislikes: 0,
-        },
-        {
-          id: nanoid(),
-          commentUsername: "Sarthak Malhotra",
-          commentKarma: 0.21,
-          commentText:
-            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
-          commentLikes: 2,
-          commentDislikes: 5,
-        },
-      ],
+    },
+  ]);
+
+  const [comments, setComments] = React.useState([
+    {
+      id: nanoid(),
+      parentID: 1,
+      commentUsername: "Vivek Anand",
+      commentKarma: 42,
+      commentText:
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
+      commentLikes: 3,
+      commentDislikes: 2,
+    },
+    {
+      id: nanoid(),
+      parentID: 1,
+      commentUsername: "Shagufta Iqbal",
+      commentKarma: 21.2,
+      commentText:
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
+      commentLikes: 12,
+      commentDislikes: 2,
+    },
+    {
+      id: nanoid(),
+      parentID: 3,
+      commentUsername: "Mehul Verma",
+      commentKarma: 12.1,
+      commentText:
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
+      commentLikes: 12,
+      commentDislikes: 0,
+    },
+    {
+      id: nanoid(),
+      parentID: 3,
+      commentUsername: "Sarthak Malhotra",
+      commentKarma: 0.21,
+      commentText:
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
+      commentLikes: 2,
+      commentDislikes: 5,
     },
   ]);
 
@@ -2956,30 +2958,24 @@ function App() {
     });
   }
 
-  function handleCommentLike(id, commentID) {
-    // const newComments = threads.map((thread) => {
-    //   return thread.id === id
-    //     ? threads.comments.map((comment) => {
-    //         return comment.id === commentID
-    //           ? { ...comment, likes: comment.likes + 1 }
-    //           : comment;
-    //       })
-    //     : thread;
-    // });
-    console.log(threads);
-    console.log(id);
-    console.log(commentID);
-    // setThreads((prevThread) => {
-    //   return prevThread.map((thread) => {
-    //     return thread.id === id
-    //       ? threads.comments.map((comment) => {
-    //           return comment.id === commentID
-    //             ? { ...comment, likes: comment.likes + 1 }
-    //             : comment;
-    //         })
-    //       : thread;
-    //   });
-    // });
+  function handleCommentLike(id) {
+    setComments((prevComment) => {
+      return prevComment.map((comment) => {
+        return comment.id === id
+          ? { ...comment, commentLikes: comment.commentLikes + 1 }
+          : comment;
+      });
+    });
+  }
+
+  function handleCommentDislike(id) {
+    setComments((prevComment) => {
+      return prevComment.map((comment) => {
+        return comment.id === id
+          ? { ...comment, commentLikes: comment.commentLikes - 1 }
+          : comment;
+      });
+    });
   }
 
   function handleDislike(id) {
@@ -3045,8 +3041,9 @@ function App() {
               dislikes={thread.dislikes}
               handleLike={() => handleLike(thread.id)}
               handleDislike={() => handleDislike(thread.id)}
-              handleCommentLike={() => handleCommentLike(thread.id)}
-              comments={thread.comments}
+              handleCommentLike={handleCommentLike}
+              handleCommentDislike={handleCommentDislike}
+              comments={comments}
               handleAddComment={() =>
                 handleAddComment(thread.id, thread.comments.id)
               }

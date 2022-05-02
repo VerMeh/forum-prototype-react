@@ -23,20 +23,24 @@ function Thread(props) {
         />
         <span className="total--likes">{props.likes - props.dislikes}</span>
       </div>
-      {props.comments
-        ? props.comments.map((comment) => (
-            <Comment
-              key={comment.id}
-              commentUsername={comment.commentUsername}
-              commentKarma={comment.commentKarma}
-              commentText={comment.commentText}
-              commentLikes={comment.commentLikes}
-              commentDislikes={comment.commentDislikes}
-              handleLike={props.handleCommentLike}
-              handleDislike={props.handleDislike}
-            />
-          ))
-        : ""}
+      {console.log(props.id)}
+      {props.comments.map((comment) =>
+        comment.parentID === props.id ? (
+          <Comment
+            key={comment.id}
+            commentUsername={comment.commentUsername}
+            commentKarma={comment.commentKarma}
+            commentText={comment.commentText}
+            commentLikes={comment.commentLikes}
+            commentDislikes={comment.commentDislikes}
+            handleLike={() => props.handleCommentLike(comment.id)}
+            handleDislike={() => props.handleCommentDislike(comment.id)}
+          />
+        ) : (
+          ""
+        )
+      )}
+
       <AddComment
         threadId={props.id}
         handleAddComment={props.handleAddComment}
