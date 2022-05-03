@@ -8,18 +8,19 @@ function AddComment(props) {
     if (characterLimit - event.target.value.length >= 0) {
       setCommentText(event.target.value);
     }
-    console.log(commentText);
+    // console.log(commentText);
   }
 
   function handleCommentClick() {
     if (commentText.trim().length > 0) {
-      props.handleAddComment(commentText);
-      console.log(commentText);
+      console.log(props.id);
+      props.handleAddComment(props.id, commentText);
+      console.log({ commentText });
       setCommentText("");
     }
   }
   return (
-    <div className="add--comment">
+    <div className="add--comment" style={{ marginLeft: 67 }}>
       <textarea
         cols="90"
         rows="10"
@@ -29,7 +30,12 @@ function AddComment(props) {
       ></textarea>
       <div className="comment--footer">
         <small>{characterLimit - commentText.length} Remaining</small>
-        <button className="save" onClick={handleCommentClick}>
+        <button
+          className="save"
+          onClick={() => {
+            handleCommentClick(props.id, commentText);
+          }}
+        >
           Post
         </button>
       </div>

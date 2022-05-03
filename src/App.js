@@ -34,49 +34,6 @@ function App() {
     },
   ]);
 
-  const [comments, setComments] = React.useState([
-    {
-      id: nanoid(),
-      parentID: 1,
-      commentUsername: "Vivek Anand",
-      commentKarma: 42,
-      commentText:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
-      commentLikes: 3,
-      commentDislikes: 2,
-    },
-    {
-      id: nanoid(),
-      parentID: 1,
-      commentUsername: "Shagufta Iqbal",
-      commentKarma: 21.2,
-      commentText:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
-      commentLikes: 12,
-      commentDislikes: 2,
-    },
-    {
-      id: nanoid(),
-      parentID: 3,
-      commentUsername: "Mehul Verma",
-      commentKarma: 12.1,
-      commentText:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
-      commentLikes: 12,
-      commentDislikes: 0,
-    },
-    {
-      id: nanoid(),
-      parentID: 3,
-      commentUsername: "Sarthak Malhotra",
-      commentKarma: 0.21,
-      commentText:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis hic cumque reprehenderit magni maiores consequatur commodi eaque nostrum asperiores voluptas. Minus aspernatur odio nobis maxime veniam. Natus ratione veniam possimus",
-      commentLikes: 2,
-      commentDislikes: 5,
-    },
-  ]);
-
   function capFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -2958,26 +2915,6 @@ function App() {
     });
   }
 
-  function handleCommentLike(id) {
-    setComments((prevComment) => {
-      return prevComment.map((comment) => {
-        return comment.id === id
-          ? { ...comment, commentLikes: comment.commentLikes + 1 }
-          : comment;
-      });
-    });
-  }
-
-  function handleCommentDislike(id) {
-    setComments((prevComment) => {
-      return prevComment.map((comment) => {
-        return comment.id === id
-          ? { ...comment, commentLikes: comment.commentLikes - 1 }
-          : comment;
-      });
-    });
-  }
-
   function handleDislike(id) {
     setThreads((prevThread) => {
       return prevThread.map((thread) => {
@@ -3001,48 +2938,31 @@ function App() {
     setThreads(newThreads);
   }
 
-  function handleAddComment(parentID, text) {
-    console.log(text);
-    const newComment = {
-      id: nanoid(),
-      parentID: parentID,
-      commentUsername: generateName(),
-      commentKarma: Math.floor(Math.random() * 100),
-      commentText: text,
-      commentLikes: 0,
-      commentDislikes: 0,
-    };
-
-    const newComments = [...comments, newComment];
-    setComments(newComments);
-  }
-
   return (
     <div className="app">
       <Nav />
       {/* <ThreadsList threads={threads} handleLike={handleLike} /> */}
-      <div className="thread--list">
-        {threads.map((thread) => (
-          <div className="thread">
-            <Thread
-              key={thread.id}
-              id={thread.id}
-              username={thread.username}
-              karma={thread.karma}
-              text={thread.text}
-              likes={thread.likes}
-              dislikes={thread.dislikes}
-              handleLike={() => handleLike(thread.id)}
-              handleDislike={() => handleDislike(thread.id)}
-              handleCommentLike={handleCommentLike}
-              handleCommentDislike={handleCommentDislike}
-              comments={comments}
-              handleAddComment={() => handleAddComment(thread.id)}
-            />
-          </div>
-        ))}
-      </div>
-      <AddThread handleAddThread={handleAddThread} />
+      <React.StrictMode>
+        <div className="thread--list">
+          {threads.map((thread) => (
+            <div className="thread">
+              <Thread
+                key={thread.id}
+                id={thread.id}
+                username={thread.username}
+                karma={thread.karma}
+                text={thread.text}
+                likes={thread.likes}
+                dislikes={thread.dislikes}
+                handleLike={() => handleLike(thread.id)}
+                handleDislike={() => handleDislike(thread.id)}
+                generateName={generateName}
+              />
+            </div>
+          ))}
+        </div>
+        <AddThread handleAddThread={handleAddThread} />
+      </React.StrictMode>
     </div>
   );
 }
